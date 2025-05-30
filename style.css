@@ -3,7 +3,7 @@
 /* Top section with blue background */
 .intel-header {
   background-color: #0049e7; /* Intel blue color */
-  padding: 10px 10px;
+  padding: 20px 10px;
   text-align: center;
 }
 
@@ -182,4 +182,20 @@
   pointer-events: auto;
   /* Make sure the back is above the front */
   z-index: 3;
+}
+
+.timeline-bottom-text{
+  text-align: center;
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f5faff; /* Match the timeline background */
+  border-top: 1px solid #cce0f7; /* Subtle border to separate from content */
+  border-radius: 0 0 16px 16px; /* Rounded corners at the bottom */
+  font-family: Arial, sans-serif;
+  line-height: 1.4;
+  max-width: 100%; /* Limit width for readability */
+  margin: 20px auto; /* Center the text */
+  padding: 20px; /* Add some padding for better spacing */  
 }
