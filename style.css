@@ -13,6 +13,15 @@
   margin-bottom: 0px;
 }
 
+/* Light blue line between logo and heading */
+.intel-header-line {
+  width: 300px;                /* Make the line a bit wide */
+  height: 5px;                /* Thin horizontal line */
+  background-color: #b3e0ff;  /* Light blue color */
+  margin: 16px auto 16px auto;/* Space above and below, center horizontally */
+  border-radius: 3px;         /* Rounded edges */
+}
+
 /* Headline styling */
 .intel-headline {
   color: white;
@@ -41,7 +50,10 @@
   max-width: 100vw; /* Prevent from overflowing the viewport */
   min-width: 0;
   margin: 0 auto;
-  /* The scrollbar will now appear at the bottom of the timeline only */
+  /* Enable horizontal scroll snap */
+  scroll-snap-type: x mandatory; /* Enable horizontal scroll snap */
+  scroll-padding-left: 50vw;     /* Helps center the first card */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
 }
 
 /* Timeline card styles */
@@ -59,6 +71,8 @@
   overflow: hidden;
   font-size: 1.25em; /* Larger text */
   word-break: break-word;
+  /* Snap each card to the start of the scroll area */
+  scroll-snap-align: center; /* Snap each card to the center of the viewport */
 }
 
 /* Show image on the front of the card by default */
@@ -153,21 +167,43 @@
 
 /* Responsive: stack cards on small screens */
 @media (max-width: 600px) {
+  /* Make the timeline vertical on small screens */
   .timeline-container {
+    flex-direction: column;        /* Stack cards vertically */
+    overflow-x: hidden;            /* Remove horizontal scroll */
+    overflow-y: auto;              /* Enable vertical scroll if needed */
+    gap: 18px;                     /* Less space between cards vertically */
     width: 98vw;
     min-width: 0;
-    gap: 16px;
     max-width: 100vw;
+    padding: 18px 0;
+    scroll-snap-type: none;        /* Disable horizontal snap */
+    scroll-padding-left: 0;
   }
   .timeline-card {
-    width: 92vw;
+    width: 92vw;                   /* Make cards fit the screen width */
     min-width: 220px;
     height: 320px;
     font-size: 1em;
+    margin: 0 auto;                /* Center cards horizontally */
+    scroll-snap-align: none;       /* Disable snap for vertical layout */
   }
   .card-back {
     font-size: 1em;
     padding: 15px 8px;
+  }
+  /* Show vertical scrollbar for beginners */
+  .timeline-container::-webkit-scrollbar {
+    width: 12px;
+    height: 0;
+    display: block;
+  }
+  .timeline-container::-webkit-scrollbar-thumb {
+    background: #b3e0ff;
+    border-radius: 7px;
+  }
+  .timeline-container::-webkit-scrollbar-track {
+    background: #e6f2fb;
   }
 }
 
@@ -182,6 +218,14 @@
   pointer-events: auto;
   /* Make sure the back is above the front */
   z-index: 3;
+}
+
+/* Make the card slightly bigger when hovered */
+.timeline-card:hover {
+  transform: scale(1.08); /* Slightly increase size */
+  z-index: 4;             /* Make sure hovered card is above others */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18); /* Stronger shadow for effect */
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .timeline-bottom-text{
