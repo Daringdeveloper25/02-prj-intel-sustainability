@@ -170,35 +170,54 @@
   /* Make the timeline vertical on small screens */
   .timeline-container {
     flex-direction: column;        /* Stack cards vertically */
-    overflow-x: hidden;            /* Remove horizontal scroll */
-    overflow-y: auto;              /* Enable vertical scroll if needed */
-    gap: 18px;                     /* Less space between cards vertically */
-    width: 98vw;
+    overflow-x: hidden;
+    overflow-y: auto;           /* Only show vertical scrollbar if needed */
+    gap: 18px;
+    width: 100%;                /* Use 100% of parent, not 100vw */
     min-width: 0;
     max-width: 100vw;
-    padding: 18px 0;
-    scroll-snap-type: none;        /* Disable horizontal snap */
+    padding: 0 10px;            /* Add 10px padding left/right to match header */
+    margin: 0;                     /* Remove default margin */
+    scroll-snap-type: none;
     scroll-padding-left: 0;
+    box-sizing: border-box;
+    background: #8bc5ff;        /* Blue background for the timeline */
+    position: relative;         /* Needed for ::after trick below */
   }
   .timeline-card {
-    width: 88vw;                   /* Make cards a bit narrower on small screens */
-    min-width: 220px;
-    max-width: 100vw;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     height: 320px;
     font-size: 1em;
-    margin: 0 auto;                /* Center cards horizontally */
-    scroll-snap-align: none;       /* Disable snap for vertical layout */
+    margin: 0;
+    scroll-snap-align: none;
+    background: white;          /* Make sure card background is always white */
+    box-sizing: border-box;     /* Include padding and border in width */
+    position: relative;         /* Needed for stacking context */
+    z-index: 1;                 /* Make sure card is above background */
+  }
+  /* Fix for the last card: add a white overlay on the right edge to cover blue line */
+  .timeline-card:last-child::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;                 /* Covers any blue line on the right */
+    height: 100%;
+    background: white;
+    pointer-events: none;
+    z-index: 2;
+    border-radius: 0 16px 16px 0; /* Match card's border radius */
   }
   .card-back {
     font-size: 1em;
-    padding: 15px 16px;            /* Add more space on left and right */
-    max-width: 100%;               /* Prevent text from overflowing card */
-    box-sizing: border-box;        /* Include padding in width */
-    word-break: break-word;        /* Break long words to fit */
-    overflow-wrap: break-word;     /* Break long words to fit */
-    white-space: pre-line;         /* Keep line breaks, but wrap text */
-    overflow-x: auto;              /* If text is too long, allow horizontal scroll */
-    /* The above properties help keep all text inside the card on small screens */
+    padding: 15px 8px;
+    max-width: 100%;
+    box-sizing: border-box;
+    word-break: break-word;
+    overflow-x: auto;
+    /* No overflow-y here, so no vertical scrollbar on card */
   }
   /* Show vertical scrollbar for beginners */
   .timeline-container::-webkit-scrollbar {
