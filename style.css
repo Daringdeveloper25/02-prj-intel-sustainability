@@ -45,7 +45,7 @@
   overflow-y: hidden;
   padding: 40px 0;
   gap: 40px; /* More space between cards */
-  background: #f5faff;
+  background: #8bc5ff;
   width: 100%; /* Take full width of parent */
   max-width: 100vw; /* Prevent from overflowing the viewport */
   min-width: 0;
